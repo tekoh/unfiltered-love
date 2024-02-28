@@ -32,9 +32,15 @@
 	"type": "module",
 	"dependencies": {
 		"@lucia-auth/adapter-drizzle": "^1.0.2",
+		"@sveltejs/enhanced-img": "^0.1.8",
 		"arctic": "^1.2.1",
+		"bits-ui": "^0.18.4",
+		"clsx": "^2.1.0",
 		"drizzle-orm": "^0.29.4",
 		"lucia": "^3.0.1",
-		"postgres": "^3.4.3"
+		"postgres": "^3.4.3",
+		"svelte-radix": "^1.0.1",
+		"tailwind-merge": "^2.2.1",
+		"tailwind-variants": "^0.2.0"
 	}
 }
