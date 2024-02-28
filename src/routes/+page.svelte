@@ -1,4 +1,7 @@
 <script>
+  import PostList from "$lib/components/posts/PostList.svelte";
+  import { Loader2 } from "lucide-svelte";
+
   export let data;
 </script>
 
@@ -22,4 +25,16 @@
       {/await}
     </h3>
   </div>
+</div>
+
+<div class="mt-4 flex w-full justify-center">
+  {#await data.posts}
+    <div class="w-fit animate-spin">
+      <Loader2 size={52} strokeWidth={2.7} />
+    </div>
+  {:then posts}
+    <div class="w-full md:max-w-4xl">
+      <PostList {posts} route={data.path} />
+    </div>
+  {/await}
 </div>

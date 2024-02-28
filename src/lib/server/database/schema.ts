@@ -15,7 +15,7 @@ export const postTable = pgTable(
     id: serial("id").primaryKey(),
     to: varchar("to", { length: 50 }).notNull(),
     text: varchar("text", { length: 100 }).notNull(),
-    colour: varchar("colour", { length: 6 }).notNull(),
+    colour: varchar("colour", { length: 6 }).notNull().default("fff740"),
     createdAt: timestamp("created_at").defaultNow().notNull(),
     views: integer("views").notNull().default(0),
     createdBy: varchar("created_by_id", { length: 32 }).references(() => userTable.id, {

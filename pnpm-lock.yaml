@@ -61,6 +61,9 @@ devDependencies:
   drizzle-kit:
     specifier: ^0.20.14
     version: 0.20.14
+  lucide-svelte:
+    specifier: ^0.343.0
+    version: 0.343.0(svelte@4.2.12)
   postcss:
     specifier: ^8.4.35
     version: 8.4.35
@@ -2247,6 +2250,14 @@ packages:
     dependencies:
       oslo: 1.0.1
     dev: false
+
+  /lucide-svelte@0.343.0(svelte@4.2.12):
+    resolution: {integrity: sha512-TkNQBnKU2+4gJFKZJtYmYt+uSIzqwCJf3x/MemMJyv/1WGW+1sej2aYuxoiIwqy5+0txw+OcGeNJF5sbHd6nxA==}
+    peerDependencies:
+      svelte: ^3 || ^4 || ^5.0.0-next.42
+    dependencies:
+      svelte: 4.2.12
+    dev: true
 
   /magic-string@0.30.7:
     resolution: {integrity: sha512-8vBuFF/I/+OSLRmdf2wwFCJCz+nSn0m6DPvGH1fS/KiQoSaR+sETbov0eIk9KhEKy8CYqIkIAnbohxT/4H0kuA==}

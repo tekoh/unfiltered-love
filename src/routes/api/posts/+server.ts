@@ -6,7 +6,7 @@ import { and, desc, lt, sql } from "drizzle-orm";
 
 export async function GET({ url, setHeaders }) {
   const before = parseInt(url.searchParams.get("before") || "0");
-  const limit = parseInt(url.searchParams.get("limit") || "0");
+  const skip = parseInt(url.searchParams.get("skip") || "0");
   const to = url.searchParams.get("to");
 
   const result = await db
@@ -27,7 +27,8 @@ export async function GET({ url, setHeaders }) {
         : lt(postTable.createdAt, before ? new Date(before) : getDefaultDate().toDate()),
     )
     .orderBy(desc(postTable.createdAt))
-    .limit(limit || 30);
+    .limit(30)
+    .offset(skip || 0);
 
   setHeaders({
     "cache-control": "s-maxage=60",
