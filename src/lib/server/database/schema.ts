@@ -18,9 +18,10 @@ export const postTable = pgTable(
     colour: varchar("colour", { length: 6 }).notNull().default("fff740"),
     createdAt: timestamp("created_at").defaultNow().notNull(),
     views: integer("views").notNull().default(0),
-    createdBy: varchar("created_by_id", { length: 32 }).references(() => userTable.id, {
+    createdByUserId: varchar("created_by_id", { length: 32 }).references(() => userTable.id, {
       onDelete: "set null",
     }),
+    createdByIp: text("created_by_ip").notNull(),
   },
   (table) => ({
     toIndex: index("to_index").on(table.to),
