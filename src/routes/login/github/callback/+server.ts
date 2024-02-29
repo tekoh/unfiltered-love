@@ -1,5 +1,5 @@
 import { github, lucia } from "$lib/server/auth.js";
-import db from "$lib/server/database/drizzle";
+import db from "$lib/server/database";
 import { userTable } from "$lib/server/database/schema.js";
 import { error, redirect } from "@sveltejs/kit";
 import { OAuth2RequestError } from "arctic";

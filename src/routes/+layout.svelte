@@ -7,8 +7,9 @@
 
 <Navigation user={data.user} />
 
-<slot />
-
+<div class="min-h-[90vh]">
+  <slot />
+</div>
 <footer class="mt-14 w-full bg-black p-4 text-white">
   <h6 class="text-center font-medium">
     heavily inspired by <a href="https://theunsentproject.com" target="_blank" class="underline"

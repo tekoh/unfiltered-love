@@ -1,4 +1,4 @@
-import db from "$lib/server/database/drizzle";
+import db from "$lib/server/database";
 import { postTable } from "$lib/server/database/schema.js";
 import { json } from "@sveltejs/kit";
 import { count } from "drizzle-orm";
