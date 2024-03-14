@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import { and, count, eq, gt } from "drizzle-orm";
-import db from "../database";
+import db from "../database/drizzle";
 import { postTable } from "../database/schema";
 
 export async function isEligible(ip: string) {

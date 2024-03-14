@@ -1,4 +1,4 @@
-import db from "$lib/server/database/index.js";
+import db from "$lib/server/database/drizzle.js";
 import { postTable } from "$lib/server/database/schema.js";
 import { getDefaultDate } from "$lib/utils.js";
 import { json } from "@sveltejs/kit";

@@ -17,9 +17,9 @@
 
     <h2 class="mt-4 text-center text-zinc-700">a collection of anonymous love notes</h2>
 
-    <h3 class="mt-24 text-center text-2xl">
+    <h3 class="mt-24 text-center text-xl font-medium">
       {#await data.postCount}
-        loading...
+        loading love notes..
       {:then count}
         {count.toLocaleString()} love notes found
       {/await}
@@ -30,7 +30,7 @@
 <div class="mt-4 flex w-full justify-center">
   {#await data.posts}
     <div class="w-fit animate-spin">
-      <Loader2 size={52} strokeWidth={2.7} />
+      <Loader2 color="#444" size={24} strokeWidth={2.5} />
     </div>
   {:then posts}
     <div class="w-full md:max-w-4xl">

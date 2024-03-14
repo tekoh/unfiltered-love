@@ -39,7 +39,7 @@
     {/each}
   </div>
 {:else}
-  <p class="text-lg text-zinc-600">Nothing found</p>
+  <p class="text-center text-zinc-800">Nothing found ):</p>
 {/if}
 
 {#if more}
@@ -49,7 +49,7 @@
     {:else}
       <Button variant="outline" disabled class="flex gap-2">
         <div class="animate-spin">
-          <Loader2 size={16} strokeWidth={2.5} />
+          <Loader2 size={12} strokeWidth={2.5} />
         </div>
         <p>Loading...</p>
       </Button>

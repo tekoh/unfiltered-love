@@ -3,7 +3,7 @@ import { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } from "$env/static/private";
 import { DrizzlePostgreSQLAdapter } from "@lucia-auth/adapter-drizzle";
 import { GitHub } from "arctic";
 import { Lucia } from "lucia";
-import db from "./database";
+import db from "./database/drizzle";
 import { sessionTable, userTable } from "./database/schema";
 
 const adapter = new DrizzlePostgreSQLAdapter(db, sessionTable, userTable);
