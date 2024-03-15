@@ -16,7 +16,7 @@ export async function GET({ url, setHeaders }) {
       text: postTable.text,
       colour: postTable.colour,
       createdAt: postTable.createdAt,
-      views: postTable.views
+      views: postTable.views,
     })
     .from(postTable)
     .where(
@@ -32,7 +32,7 @@ export async function GET({ url, setHeaders }) {
     .offset(skip || 0);
 
   setHeaders({
-    "cache-control": "s-maxage=60",
+    "cache-control": "s-maxage=60, stale-while-revalidate",
   });
 
   return json({ data: result });
