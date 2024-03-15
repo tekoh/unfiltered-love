@@ -1,10 +1,10 @@
+import nanoid from "$lib/nanoid.js";
 import { github, lucia } from "$lib/server/auth.js";
 import db from "$lib/server/database/drizzle";
 import { userTable } from "$lib/server/database/schema.js";
 import { error, redirect } from "@sveltejs/kit";
 import { OAuth2RequestError } from "arctic";
 import { eq } from "drizzle-orm";
-import { generateId } from "lucia";
 
 export async function GET({ cookies, url }) {
   const code = url.searchParams.get("code");
@@ -36,7 +36,7 @@ export async function GET({ cookies, url }) {
         ...sessionCookie.attributes,
       });
     } else {
-      const userId = generateId(32);
+      const userId = nanoid();
 
       // Replace this with your own DB client.
       await db

@@ -7,7 +7,7 @@
 
 <a
   href="/post/{post.id}"
-  class="flex h-80 flex-col rounded border border-black p-1 font-[Caveat] text-3xl shadow-lg duration-100 hover:-translate-y-2"
+  class="flex h-80 w-72 flex-col rounded border border-black p-1 font-[Caveat] text-3xl shadow-lg duration-100 hover:-translate-y-2"
   style="background-color: #{post.colour || 'fff740'};"
 >
   <div class="w-full">

@@ -1,19 +1,11 @@
-import {
-  boolean,
-  index,
-  integer,
-  pgTable,
-  serial,
-  text,
-  timestamp,
-  varchar,
-} from "drizzle-orm/pg-core";
+import { boolean, index, integer, pgTable, text, timestamp, varchar } from "drizzle-orm/pg-core";
 
 export const postTable = pgTable(
   "posts",
   {
-    id: serial("id").primaryKey(),
+    id: varchar("id", { length: 10 }).primaryKey(),
     to: varchar("to", { length: 50 }).notNull(),
+    toDisplay: varchar("to_display", { length: 50 }).notNull(),
     text: varchar("text", { length: 100 }).notNull(),
     colour: varchar("colour", { length: 6 }).notNull().default("fff740"),
     createdAt: timestamp("created_at").defaultNow().notNull(),
@@ -29,7 +21,7 @@ export const postTable = pgTable(
 );
 
 export const userTable = pgTable("users", {
-  id: varchar("id", { length: 32 }).primaryKey(),
+  id: varchar("id", { length: 10 }).primaryKey(),
   username: varchar("username", { length: 16 }).unique().notNull(),
   githubId: integer("github_id").unique().notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
@@ -40,7 +32,7 @@ export const sessionTable = pgTable("sessions", {
   id: text("id").primaryKey(),
   userId: text("user_id")
     .notNull()
-    .references(() => userTable.id),
+    .references(() => userTable.id, { onDelete: "cascade" }),
   expiresAt: timestamp("expires_at", {
     withTimezone: true,
     mode: "date",
