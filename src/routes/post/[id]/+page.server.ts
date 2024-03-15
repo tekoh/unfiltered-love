@@ -1,7 +1,7 @@
 import db from "$lib/server/database/drizzle.js";
 import { postTable, viewsTable } from "$lib/server/database/schema.js";
 import type { APIPost } from "$lib/types/post.js";
-import { error } from "@sveltejs/kit";
+import { error, redirect } from "@sveltejs/kit";
 import dayjs from "dayjs";
 import { and, eq, gt } from "drizzle-orm";
 
@@ -42,3 +42,14 @@ export async function load({ params, fetch, request, getClientAddress }) {
     })(),
   };
 }
+
+export const actions = {
+  default: async ({ locals, params }) => {
+    if (!locals.user) return;
+    if (!locals.user.admin) return;
+
+    await db.delete(postTable).where(eq(postTable.id, params.id));
+
+    return redirect(302, "/");
+  },
+};
