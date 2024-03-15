@@ -1,5 +1,6 @@
 import nanoid from "$lib/nanoid.js";
 import { createPost } from "$lib/schema/post";
+import { invalidateISR } from "$lib/server/cache.js";
 import db from "$lib/server/database/drizzle.js";
 import { postTable } from "$lib/server/database/schema.js";
 import { fail, redirect } from "@sveltejs/kit";
@@ -21,7 +22,7 @@ export async function load({ getClientAddress, request, fetch }) {
 }
 
 export const actions = {
-  default: async ({ request, getClientAddress }) => {
+  default: async ({ request, getClientAddress, fetch }) => {
     const form = await superValidate(request, zod(createPost));
 
     console.log(form);
@@ -41,6 +42,8 @@ export const actions = {
         id: nanoid(),
       })
       .returning({ id: postTable.id });
+
+    await invalidateISR(fetch, `/api/eligible/${getClientAddress()}`, `/api/post/${post.id}`);
 
     return redirect(302, `/post/${post.id}`);
   },

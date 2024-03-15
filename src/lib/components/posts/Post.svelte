@@ -15,5 +15,8 @@
   </div>
   <p class="mt-4">{post.text}</p>
   <div class="grow" />
-  <p class="text-base">Sent on {dayjs(post.createdAt).format("YYYY-MM-DD")}</p>
+  <p class="text-base">
+    Sent on {dayjs(post.createdAt).format("YYYY-MM-DD")}
+    <span class="text-zinc-600">({post.views} views)</span>
+  </p>
 </a>
