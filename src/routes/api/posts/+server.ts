@@ -16,6 +16,7 @@ export async function GET({ url, setHeaders }) {
       text: postTable.text,
       colour: postTable.colour,
       createdAt: postTable.createdAt,
+      views: postTable.views
     })
     .from(postTable)
     .where(
