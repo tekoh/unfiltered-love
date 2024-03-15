@@ -66,7 +66,7 @@
   <div
     class="mx-auto mt-4 grid w-fit grid-cols-1 items-center justify-center gap-4 md:w-full md:max-w-4xl md:grid-cols-3"
   >
-    {#each posts as post, i}
+    {#each posts as post}
       <Post {post} />
     {/each}
   </div>
