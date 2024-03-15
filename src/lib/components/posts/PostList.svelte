@@ -66,36 +66,45 @@
   <div
     class="mx-auto mt-4 grid w-fit grid-cols-1 items-center justify-center gap-4 md:w-full md:max-w-4xl md:grid-cols-3"
   >
-    {#each posts as post}
+    {#each posts as post, i}
       <Post {post} />
     {/each}
   </div>
 {:else}
-  <p class="mt-2 text-center text-zinc-800">Nothing found ):</p>
-  {#if search}
-    <div class="flex w-full justify-center">
-      <a
-        href="/"
-        on:click={() => {
-          invalidateAll();
-        }}
-        class=" text-sky-500 underline">View all</a
-      >
+  <!-- DONT DO IT PRETITER I DONT WANT ELSE IF -->
+  {#if loading}
+    <div class="mt-2 flex w-full justify-center">
+      <div class="w-fit animate-spin">
+        <Loader2 color="#444" size={24} strokeWidth={2.5} />
+      </div>
     </div>
+  {:else}
+    <p class="mt-2 text-center text-zinc-800">Nothing found ):</p>
+    {#if search}
+      <div class="flex w-full justify-center">
+        <a
+          href="/"
+          on:click={() => {
+            invalidateAll();
+          }}
+          class=" text-sky-500 underline">View all</a
+        >
+      </div>
+    {/if}
   {/if}
 {/if}
 
 {#if more}
   <div class="mt-3 flex w-full justify-center">
     {#if loading}
-      <Button on:click={loadMore} variant="outline">Load More</Button>
-    {:else}
       <Button variant="outline" disabled class="flex gap-2">
         <div class="animate-spin">
           <Loader2 size={12} strokeWidth={2.5} />
         </div>
         <p>Loading...</p>
       </Button>
+    {:else}
+      <Button on:click={loadMore} variant="outline">Load More</Button>
     {/if}
   </div>
 {/if}
