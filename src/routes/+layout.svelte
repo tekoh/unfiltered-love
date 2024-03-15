@@ -1,5 +1,6 @@
 <script>
   import { dev } from "$app/environment";
+  import Loadbar from "$lib/components/Loadbar.svelte";
   import Navigation from "$lib/components/nav/Navigation.svelte";
   import { inject } from "@vercel/analytics";
   import "../app.css";
@@ -8,6 +9,8 @@
 
   export let data;
 </script>
+
+<Loadbar />
 
 <Navigation user={data.user} />
 
