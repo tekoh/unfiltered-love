@@ -36,6 +36,7 @@
 	"type": "module",
 	"dependencies": {
 		"@lucia-auth/adapter-drizzle": "^1.0.2",
+		"@vercel/analytics": "^1.2.2",
 		"arctic": "^1.2.1",
 		"bits-ui": "^0.18.4",
 		"clsx": "^2.1.0",

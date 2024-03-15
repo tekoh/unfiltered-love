@@ -1,6 +1,10 @@
 <script>
+  import { dev } from "$app/environment";
   import Navigation from "$lib/components/nav/Navigation.svelte";
+  import { inject } from "@vercel/analytics";
   import "../app.css";
+
+  if (!dev) inject({ mode: "production" });
 
   export let data;
 </script>
