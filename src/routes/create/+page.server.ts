@@ -43,7 +43,7 @@ export const actions = {
       })
       .returning({ id: postTable.id });
 
-    await invalidateISR(fetch, `/api/eligible/${getClientAddress()}`, `/api/post/${post.id}`);
+    await invalidateISR(fetch, `/api/eligible/${getClientAddress()}`, `/api/post/${post.id}`, "/");
 
     return redirect(302, `/post/${post.id}`);
   },
