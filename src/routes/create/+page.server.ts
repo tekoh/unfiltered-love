@@ -10,7 +10,7 @@ import { zod } from "sveltekit-superforms/adapters";
 export async function load({ getClientAddress, request, fetch }) {
   const form = await superValidate({ colour: "fff740" }, zod(createPost));
 
-  const eligible = fetch(`/api/eligible/${getClientAddress()}`)
+  const eligible = fetch(`/api/eligible/${encodeURIComponent(getClientAddress())}`)
     .then((r) => r.json() as Promise<{ eligible: boolean }>)
     .then((i) => i.eligible);
 
