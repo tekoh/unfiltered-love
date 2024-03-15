@@ -2,7 +2,7 @@ import db from "$lib/server/database/drizzle.js";
 import { postTable } from "$lib/server/database/schema.js";
 import { getDefaultDate } from "$lib/utils.js";
 import { json } from "@sveltejs/kit";
-import { and, desc, lt, sql } from "drizzle-orm";
+import { and, desc, eq, lt } from "drizzle-orm";
 
 export async function GET({ url, setHeaders }) {
   const before = parseInt(url.searchParams.get("before") || "0");
@@ -12,7 +12,7 @@ export async function GET({ url, setHeaders }) {
   const result = await db
     .select({
       id: postTable.id,
-      to: postTable.to,
+      to: postTable.toDisplay,
       text: postTable.text,
       colour: postTable.colour,
       createdAt: postTable.createdAt,
@@ -23,7 +23,7 @@ export async function GET({ url, setHeaders }) {
       to
         ? and(
             lt(postTable.createdAt, before ? new Date(before) : getDefaultDate().toDate()),
-            sql`lower(${postTable.to}) = '${to}'`,
+            eq(postTable.to, to),
           )
         : lt(postTable.createdAt, before ? new Date(before) : getDefaultDate().toDate()),
     )
