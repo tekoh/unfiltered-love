@@ -9,8 +9,11 @@ export const config = {
   },
 };
 
-export async function load({ fetch, request }) {
-  const path = `/api/posts?before=${getDefaultDate().toDate().getTime()}`;
+export async function load({ fetch, request, url }) {
+  let path = `/api/posts?before=${getDefaultDate().toDate().getTime()}`;
+
+  if (url.searchParams?.has("search"))
+    path += `&to=${url.searchParams.get("search")?.toLowerCase()}`;
 
   if (request.headers.get("user-agent")?.toLowerCase().includes("bot")) {
     return {
