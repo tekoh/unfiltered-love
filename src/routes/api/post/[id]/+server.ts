@@ -1,8 +1,8 @@
 import { ISR_BYPASS } from "$env/static/private";
 import db from "$lib/server/database/drizzle.js";
-import { postTable } from "$lib/server/database/schema.js";
+import { postTable, viewsTable } from "$lib/server/database/schema.js";
 import { json } from "@sveltejs/kit";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 
 export const config = {
   isr: {
@@ -14,15 +14,19 @@ export const config = {
 export async function GET({ params }) {
   const [post] = await db
     .select({
+      id: postTable.id,
       to: postTable.toDisplay,
       text: postTable.text,
-      colour: postTable.colour,
       createdAt: postTable.createdAt,
-      views: postTable.views,
-      id: postTable.id,
+      colour: postTable.colour,
+      views: sql<string>`count(${viewsTable.id})`,
     })
     .from(postTable)
-    .where(eq(postTable.id, params.id));
+    .where(eq(postTable.id, params.id))
+    .leftJoin(viewsTable, eq(viewsTable.postId, postTable.id))
+    .groupBy(postTable.id);
+
+  // console.log(post);
 
   if (!post) return json({ ok: false });
   return json({ ok: true, post });

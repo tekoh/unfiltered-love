@@ -1,4 +1,13 @@
-import { boolean, index, integer, pgTable, text, timestamp, varchar } from "drizzle-orm/pg-core";
+import {
+  boolean,
+  index,
+  integer,
+  pgTable,
+  text,
+  timestamp,
+  uuid,
+  varchar,
+} from "drizzle-orm/pg-core";
 
 export const postTable = pgTable(
   "posts",
@@ -9,7 +18,6 @@ export const postTable = pgTable(
     text: varchar("text", { length: 100 }).notNull(),
     colour: varchar("colour", { length: 6 }).notNull().default("fff740"),
     createdAt: timestamp("created_at").defaultNow().notNull(),
-    views: integer("views").notNull().default(0),
     createdByUserId: varchar("created_by_id", { length: 32 }).references(() => userTable.id, {
       onDelete: "set null",
     }),
@@ -17,6 +25,24 @@ export const postTable = pgTable(
   },
   (table) => ({
     toIndex: index("to_index").on(table.to),
+  }),
+);
+
+export const viewsTable = pgTable(
+  "views",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    createdAt: timestamp("created_at").defaultNow(),
+    postId: varchar("post_id", { length: 10 })
+      .notNull()
+      .references(() => postTable.id, {
+        onDelete: "cascade",
+      }),
+    ipAddress: text("ip_address").notNull(),
+  },
+  (table) => ({
+    postIndex: index("views_post_index").on(table.postId),
+    ipIndex: index("views_ip_index").on(table.ipAddress),
   }),
 );
 

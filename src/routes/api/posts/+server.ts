@@ -1,8 +1,8 @@
 import db from "$lib/server/database/drizzle.js";
-import { postTable } from "$lib/server/database/schema.js";
+import { postTable, viewsTable } from "$lib/server/database/schema.js";
 import { getDefaultDate } from "$lib/utils.js";
 import { json } from "@sveltejs/kit";
-import { and, desc, eq, lt } from "drizzle-orm";
+import { and, desc, eq, lt, sql } from "drizzle-orm";
 
 export async function GET({ url, setHeaders }) {
   const before = parseInt(url.searchParams.get("before") || "0");
@@ -16,7 +16,7 @@ export async function GET({ url, setHeaders }) {
       text: postTable.text,
       colour: postTable.colour,
       createdAt: postTable.createdAt,
-      views: postTable.views,
+      views: sql<string>`count(${viewsTable.id})`,
     })
     .from(postTable)
     .where(
@@ -27,6 +27,8 @@ export async function GET({ url, setHeaders }) {
           )
         : lt(postTable.createdAt, before ? new Date(before) : getDefaultDate().toDate()),
     )
+    .leftJoin(viewsTable, eq(viewsTable.postId, postTable.id))
+    .groupBy(postTable.id)
     .orderBy(desc(postTable.createdAt))
     .limit(30)
     .offset(skip || 0);
