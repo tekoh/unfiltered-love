@@ -5,7 +5,7 @@ import { error, redirect } from "@sveltejs/kit";
 import dayjs from "dayjs";
 import { and, eq, gt } from "drizzle-orm";
 
-export async function load({ params, fetch, request, getClientAddress }) {
+export async function load({ params, fetch, request, getClientAddress, locals }) {
   const post = await fetch(`/api/post/${params.id.toLowerCase()}`).then(
     (r) => r.json() as Promise<APIPost>,
   );
@@ -16,6 +16,7 @@ export async function load({ params, fetch, request, getClientAddress }) {
 
   if (request.headers.get("user-agent")?.toLowerCase().includes("bot")) return { post: post.post };
   return {
+    user: locals.user,
     post: post.post,
     _view: (async () => {
       const [views, ipCheck] = await Promise.all([

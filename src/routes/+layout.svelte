@@ -6,13 +6,11 @@
   import "../app.css";
 
   if (!dev) inject({ mode: "production" });
-
-  export let data;
 </script>
 
 <Loadbar />
 
-<Navigation user={data.user} />
+<Navigation />
 
 <div class="min-h-[90vh]">
   <slot />
