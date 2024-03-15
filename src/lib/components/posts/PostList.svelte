@@ -13,6 +13,8 @@
 
   onMount(() => {
     if (posts.length === 3) more = true;
+
+    console.log(posts);
   });
 
   async function loadMore() {

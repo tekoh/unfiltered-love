@@ -7,7 +7,7 @@
 
 <a
   href="/post/{post.id}"
-  class="flex h-80 w-72 flex-col rounded border border-black p-1 font-[Caveat] text-3xl shadow-lg duration-100 hover:-translate-y-2"
+  class="flex h-80 w-72 flex-col rounded border border-black p-2 font-[Caveat] text-3xl shadow-lg duration-100 hover:-translate-y-2"
   style="background-color: #{post.colour || 'fff740'};"
 >
   <div class="w-full">
@@ -15,8 +15,8 @@
   </div>
   <p class="mt-4">{post.text}</p>
   <div class="grow" />
-  <p class="text-base">
+  <p class="-mb-2 text-base">
     Sent on {dayjs(post.createdAt).format("YYYY-MM-DD")}
-    <span class="text-zinc-600">({post.views} views)</span>
+    <span class="text-zinc-600">({post.views} view{post.views === 1 ? "" : "s"})</span>
   </p>
 </a>
