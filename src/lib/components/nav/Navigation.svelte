@@ -10,6 +10,8 @@
       <Img src={logo} class="h-16 w-auto" alt="logo" />
     </a>
 
+    <div class="grow" />
+
     <Button href="/create">create</Button>
   </div>
 </nav>
