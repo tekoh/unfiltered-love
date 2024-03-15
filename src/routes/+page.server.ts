@@ -7,7 +7,6 @@ export const config = {
     expiration: 3600,
     bypassToken: ISR_BYPASS,
   },
-  runtime: "edge",
 };
 
 export async function load({ fetch, request }) {
