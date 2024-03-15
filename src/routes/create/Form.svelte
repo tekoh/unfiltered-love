@@ -30,8 +30,8 @@
           class="mx-auto flex h-80 w-72 flex-col rounded border border-black p-1 font-[Caveat] text-3xl shadow-lg md:mx-0"
           style="background-color: #{$form.colour};"
         >
-          <div class="w-full">
-            <p>
+          <div class="w-full overflow-hidden">
+            <p class="flex gap-2">
               To: <input
                 type="text"
                 name="to"
