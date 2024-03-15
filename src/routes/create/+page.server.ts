@@ -1,3 +1,4 @@
+import { dev } from "$app/environment";
 import nanoid from "$lib/nanoid.js";
 import { createPost } from "$lib/schema/post";
 import { invalidateISR } from "$lib/server/cache.js";
@@ -18,11 +19,19 @@ export async function load({ getClientAddress, request, fetch }) {
     return { form, eligible: await eligible };
   }
 
+  if (dev) return { form, eligible: true };
+
   return { form, eligible };
 }
 
 export const actions = {
   default: async ({ request, getClientAddress, fetch }) => {
+    const eligible = await fetch(`/api/eligible/${encodeURIComponent(getClientAddress())}`)
+      .then((r) => r.json() as Promise<{ eligible: boolean }>)
+      .then((i) => i.eligible);
+
+    if (!eligible) return redirect(302, "/");
+
     const form = await superValidate(request, zod(createPost));
 
     console.log(form);

@@ -1,6 +1,7 @@
 <script lang="ts">
   import { colours } from "$lib";
   import { FormButton } from "$lib/components/ui/form";
+  import { Loader2 } from "lucide-svelte";
   import { superForm, type SuperValidated } from "sveltekit-superforms";
 
   export let formData: SuperValidated<
@@ -81,8 +82,24 @@
             <label class="break-words" for="terms">I agree to the terms of submission</label>
           </div>
 
+          {#if Object.entries($errors).length > 0}
+            {@const [title, error] = Object.entries($errors)[0]}
+            <h3 class="font-semibold text-red-500">{title}</h3>
+            <p class="text-sm text-red-500">{error}</p>
+          {/if}
+
           <div class="flex w-full justify-center md:block">
-            <FormButton class="mt-4">Submit</FormButton>
+            {#if $delayed}
+              <FormButton disabled class=" mt-4 flex items-center gap-2">
+                <p>Submit</p>
+
+                <div class="w-fit animate-spin">
+                  <Loader2 size={16} strokeWidth={2.7} />
+                </div>
+              </FormButton>
+            {:else}
+              <FormButton class="mt-4">Submit</FormButton>
+            {/if}
           </div>
         </div>
       </div>
