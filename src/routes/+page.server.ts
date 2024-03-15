@@ -10,9 +10,18 @@ export const config = {
   runtime: "edge",
 };
 
-export async function load({ fetch }) {
+export async function load({ fetch, request }) {
   const path = `/api/posts?before=${getDefaultDate().toDate().getTime()}`;
 
+  if (request.headers.get("user-agent")?.toLowerCase().includes("bot")) {
+    return {
+      postCount: await fetch("/api/posts/count").then((r) =>
+        r.json().then((r) => r.count as number),
+      ),
+      posts: await fetch(path).then((r) => r.json().then((r) => r.data as Post[])),
+      path,
+    };
+  }
   return {
     postCount: fetch("/api/posts/count").then((r) => r.json().then((r) => r.count as number)),
     posts: fetch(path).then((r) => r.json().then((r) => r.data as Post[])),
