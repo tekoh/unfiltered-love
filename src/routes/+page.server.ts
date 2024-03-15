@@ -1,5 +1,13 @@
+import { ISR_BYPASS } from "$env/static/private";
 import type { Post } from "$lib/types/post.js";
 import { getDefaultDate } from "$lib/utils.js";
+
+export const config = {
+  isr: {
+    expiration: 86400,
+    bypassToken: ISR_BYPASS,
+  },
+};
 
 export async function load({ fetch, request, url }) {
   let path = `/api/posts?before=${getDefaultDate().toDate().getTime()}`;
