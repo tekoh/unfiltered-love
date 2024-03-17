@@ -1,14 +1,18 @@
 import db from "$lib/server/database/drizzle";
 import { postTable } from "$lib/server/database/schema.js";
 import { json } from "@sveltejs/kit";
-import { count } from "drizzle-orm";
+import { count, eq } from "drizzle-orm";
 
-export async function GET({ setHeaders }) {
+export async function GET({ setHeaders, url }) {
   setHeaders({
     "cache-control": "s-maxage=300, stale-while-revalidate",
   });
 
-  const value = await db.select({ value: count() }).from(postTable);
+  let query = db.select({ value: count() }).from(postTable).$dynamic();
 
-  return json({ count: value[0].value });
+  if (url.searchParams.has("search")) {
+    query = query.where(eq(postTable.to, url.searchParams.get("search")!));
+  }
+
+  return json({ count: (await query)[0].value });
 }

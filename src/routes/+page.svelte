@@ -1,8 +1,18 @@
 <script>
   import PostList from "$lib/components/posts/PostList.svelte";
   import { Loader2 } from "lucide-svelte";
+  import { onMount } from "svelte";
+  import { writable } from "svelte/store";
 
   export let data;
+
+  const count = writable(0);
+
+  onMount(async () => {
+    const postCount = await data.postCount;
+
+    $count = postCount;
+  });
 </script>
 
 <svelte:head>
@@ -20,8 +30,8 @@
     <h3 class="mt-24 text-center text-xl font-medium">
       {#await data.postCount}
         loading love notes..
-      {:then count}
-        {count.toLocaleString()} love notes found
+      {:then}
+        {$count.toLocaleString()} love notes found
       {/await}
     </h3>
   </div>
@@ -34,7 +44,7 @@
     </div>
   {:then posts}
     <div class="w-full md:max-w-4xl">
-      <PostList {posts} route={data.path} />
+      <PostList {posts} route={data.path} {count} />
     </div>
   {/await}
 </div>

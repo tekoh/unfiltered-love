@@ -4,20 +4,20 @@
   import type { Post as PostType } from "$lib/types/post";
   import { Loader2 } from "lucide-svelte";
   import { onMount } from "svelte";
+  import type { Writable } from "svelte/store";
   import { Button } from "../ui/button";
   import Post from "./Post.svelte";
 
   export let posts: PostType[];
   export let route: string;
+  export let count: Writable<number>;
 
   let more = false;
   let loading = false;
   let search = $page.url.searchParams?.get("search") || "";
 
   onMount(() => {
-    if (posts.length === 3) more = true;
-
-    console.log(posts);
+    if (posts.length === 30) more = true;
   });
 
   async function loadMore() {
@@ -34,7 +34,7 @@
     }
   }
 
-  function findSpecific() {
+  async function findSpecific() {
     const params = new URLSearchParams(route.split("?")[1]);
     if (search === "") params.delete("to");
     else params.set("to", search.toLowerCase());
@@ -43,6 +43,9 @@
     posts = [];
 
     loadMore();
+    $count = await fetch(`/api/posts/count${search ? `?search=${search.toLowerCase()}` : ""}`).then(
+      (r) => r.json().then((r) => r.count),
+    );
 
     return null;
   }
