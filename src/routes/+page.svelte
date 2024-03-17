@@ -17,6 +17,7 @@
 
 <svelte:head>
   <title>unfiltered.love</title>
+  <meta name="description" content="Send anonymous and unfiltered love messages" />
 </svelte:head>
 
 <div class="flex w-full justify-center">
