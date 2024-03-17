@@ -25,6 +25,7 @@ export async function load({ params, fetch, request, getClientAddress, locals })
           .from(viewsTable)
           .where(
             and(
+              eq(viewsTable.postId, post.post.id),
               eq(viewsTable.ipAddress, getClientAddress()),
               gt(viewsTable.createdAt, dayjs().subtract(1, "day").toDate()),
             ),
