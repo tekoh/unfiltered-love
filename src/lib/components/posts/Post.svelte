@@ -13,7 +13,7 @@
   <div class="w-full">
     <p>To: {post.to}</p>
   </div>
-  <p class="mt-4">{post.text}</p>
+  <p class="overflow-ellipsiss mt-4 break-words">{post.text}</p>
   <div class="grow" />
   <p class="-mb-2 text-base">
     Sent on {dayjs(post.createdAt).format("YYYY-MM-DD")}
